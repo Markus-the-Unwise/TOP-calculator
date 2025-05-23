@@ -20,8 +20,24 @@ function operate(a, b, opMethod) {
         default:
             break;
     }
+    return result
 }
 
+function addNumberToValue(obj, value) {
+    obj.str += value;
+}
+
+function addDecimal(obj) {
+    if (obj.decimal == true) { return };
+    obj.str += ".";
+    obj.decimal = true;
+}
+
+function negativeMultiplier(obj) {
+    obj.negative *= -1
+    if (obj.negative == -1 && !obj.str.includes("-")) { obj.str = '-' + obj.str }
+    if (obj.negative == 1 && obj.str.includes("-")) { obj.str.replace('-', "") }
+}
 
 // Initial values
 let firstValue = { str: "", value: 0, decimal: false, negative: 1, inherited: false };
@@ -89,3 +105,10 @@ if status == [T T T]
 
 TODO:function convertResultToFirstValue()
 */
+
+const allKeys = document.querySelectorAll("#keys button");
+const resultDiv = document.querySelector('#result');
+console.log(allKeys)
+for (let i = 0; i < allKeys.length; i++) {
+    allKeys[i].addEventListener('click', (e) => { console.log(e.target.id); resultDiv.innerText += e.target.id })
+}
