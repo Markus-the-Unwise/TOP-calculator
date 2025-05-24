@@ -34,18 +34,43 @@ function addDecimal(obj) {
 }
 
 function negativeMultiplier(obj) {
-    obj.negative *= -1
-    if (obj.negative == -1 && !obj.str.includes("-")) { obj.str = '-' + obj.str }
-    if (obj.negative == 1 && obj.str.includes("-")) { obj.str.replace('-', "") }
+    obj.negative = !obj.negative
+    if (obj.negative && !obj.str.includes("-")) { obj.str = '-' + obj.str }
+    if (!obj.negative && obj.str.includes("-")) { obj.str.replace('-', "") }
+}
+
+function numberKeyClicked(keyID) {
+    // editing first value
+    if (!calcStatus[1]) {
+        calcStatus[0] = true
+        addNumberToValue(firstValue, keyID)
+        return
+    }
+    if (calcStatus[1]) {
+
+    }
+    switch (calcStatus[1]) {
+        case false:
+            calcStatus[0] = true;
+            addNumberToValue(firstValue, keyID);
+            break;
+        case true:
+            calcStatus[2] = true;
+            addNumberToValue(secondValue, keyID);
+            break;
+        default:
+            console.log("Exception at numberKeyClicked");
+            break;
+    }
 }
 
 // Initial values
-let firstValue = { str: "", value: 0, decimal: false, negative: 1, inherited: false };
-let secondValue = { str: "", value: 0, decimal: false, negative: 1 };
+let firstValue = { str: "", value: 0, decimal: false, negative: false, inherited: false };
+let secondValue = { str: "", value: 0, decimal: false, negative: false };
 let result = 0;
 let operation = "";
 
-const status = [false, false, false]; //[FirstValueExists,OperationMethodSelected, SecondValueExists]
+const calcStatus = [false, false, false]; //[FirstValueExists,OperationMethodSelected, SecondValueExists]
 
 /*
 process A (first time use, status == [F F F]):
@@ -77,6 +102,8 @@ if status == [T F F] or [F F F]:
 if status == [T T F] or [T T T]:
     secondValue.negative *= -1
 
+Special key (AC):
+remove all values and operations
 
 Number Keys (0-9):
 if status == [F F F]
@@ -106,9 +133,14 @@ if status == [T T T]
 TODO:function convertResultToFirstValue()
 */
 
-const allKeys = document.querySelectorAll("#keys button");
+const allKeys = document.querySelectorAll("#numberKeys button");
 const resultDiv = document.querySelector('#result');
 console.log(allKeys)
 for (let i = 0; i < allKeys.length; i++) {
-    allKeys[i].addEventListener('click', (e) => { console.log(e.target.id); resultDiv.innerText += e.target.id })
+    allKeys[i].addEventListener('click', (e) => {
+        calcStatus[1] = document.querySelector('#operationSelected').checked;
+        console.log(`calcStatus: ${calcStatus}`);
+        numberKeyClicked(e.target.id);
+        resultDiv.textContent = firstValue.str
+    })
 }
