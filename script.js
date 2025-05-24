@@ -51,8 +51,8 @@ function storeResultToFirstValue (result){
     firstValue.inherited = true;
 }
 
-// Number Keys
-function numberKeyClicked(keyID) {
+// Keys
+function numberKeyPress(keyID) {
     switch (calcStatus[1]) {
         case false:
             calcStatus[0] = true;
@@ -63,12 +63,48 @@ function numberKeyClicked(keyID) {
             addNumberToValue(secondValue, keyID);
             break;
         default:
-            console.log("Exception at numberKeyClicked");
+            console.log("Exception at numberKeyPress");
             break;
     }
 }
 
-function operationKeyClicked(keyID){
+function negativeKeyPress(){
+    switch (calcStatus[1]) {
+        case false:
+            negativeMultiplier(firstValue);
+            break;
+        case true:
+            negativeMultiplier(secondValue);
+            break;
+        default:
+            console.log("Exception at negativeKeyPress");
+            break;
+    }
+}
+
+function decimalKeyPress(){
+    switch (calcStatus[1]) {
+        case false:
+            addDecimal(firstValue);
+            break;
+        case true:
+            addDecimal(secondValue);
+            break;
+        default:
+            console.log("Exception at decimalKeyPress");
+            break;
+    }
+}
+
+function allClear(){
+    firstValue = { str: "", value: 0, decimal: false, negative: false, inherited: false };
+    secondValue = { str: "", value: 0, decimal: false, negative: false };
+    result = 0;
+    operation = "";    
+    calcStatus = [false, false, false];
+}
+
+function operationKeyPress(keyID){
     if(calcStatus[2]){
         // store second value
         // begin calculation, store result to first value (inherit = true) and keyID to operation type
@@ -92,7 +128,7 @@ let secondValue = { str: "", value: 0, decimal: false, negative: false };
 let result = 0;
 let operation = "";
 
-const calcStatus = [false, false, false]; //[FirstValueExists,OperationMethodSelected, SecondValueExists]
+let calcStatus = [false, false, false]; //[FirstValueExists,OperationMethodSelected, SecondValueExists]
 
 /*
 process A (first time use, status == [F F F]):
@@ -162,7 +198,7 @@ for (let i = 0; i < allKeys.length; i++) {
     allKeys[i].addEventListener('click', (e) => {
         calcStatus[1] = document.querySelector('#operationSelected').checked;
         console.log(`calcStatus: ${calcStatus}`);
-        numberKeyClicked(e.target.id);
+        numberKeyPress(e.target.id);
         resultDiv.textContent = firstValue.str
     })
 }
