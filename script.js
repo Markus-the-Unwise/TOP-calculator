@@ -39,18 +39,15 @@ function negativeMultiplier(obj) {
     if (!obj.negative && obj.str.includes("-")) { obj.str.replace('-', "") }
 }
 
-function numberKeyClicked(keyID) {
-    // editing first value
-    if (!calcStatus[1]) {
-        calcStatus[0] = true
-        addNumberToValue(firstValue, keyID)
-        return
-    }
-    if (calcStatus[1]) {
+function storeValue(obj){
+    obj.value = parseFloat(obj.str);
+    return
+}
 
-    }
+function numberKeyClicked(keyID) {
     switch (calcStatus[1]) {
         case false:
+            if (firstValue.inherited){firstValue.str = ""}
             calcStatus[0] = true;
             addNumberToValue(firstValue, keyID);
             break;
@@ -62,6 +59,24 @@ function numberKeyClicked(keyID) {
             console.log("Exception at numberKeyClicked");
             break;
     }
+}
+
+function operationKeyClicked(keyID){
+    if(calcStatus[2]){
+        // store second value
+        // begin calculation, store result to first value (inherit = true) and keyID to operation type
+        // flag calcStatus to [TTF]
+        // reset all
+        return
+    }
+    operation = keyID;
+    return
+}
+
+function equalKeyPress(){
+    // store second value
+    // begin calculation, store result to first value (inherit = true), reset everything else
+    // status = [TFF]
 }
 
 // Initial values
