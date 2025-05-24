@@ -1,7 +1,7 @@
 function add(a, b) { return a + b; };
 function subtract(a, b) { return a - b; };
 function multiply(a, b) { return a * b; };
-function divide(a, b) { return a / b; };
+function divide(a, b) { if(b == 0){return "BRUH"};return a / b; };
 function operate(a, b, opMethod) {
     let result = 0;
     switch (opMethod) {
@@ -47,7 +47,6 @@ function storeValue(obj){
 function numberKeyClicked(keyID) {
     switch (calcStatus[1]) {
         case false:
-            if (firstValue.inherited){firstValue.str = ""}
             calcStatus[0] = true;
             addNumberToValue(firstValue, keyID);
             break;
