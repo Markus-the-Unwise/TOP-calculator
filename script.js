@@ -44,6 +44,14 @@ function storeValue(obj){
     return
 }
 
+function storeResultToFirstValue (result){
+    firstValue.str = Sting(result);
+    firstValue.decimal = firstValue.str.includes(".");
+    firstValue.negative = firstValue.str.includes("-");
+    firstValue.inherited = true;
+}
+
+// Number Keys
 function numberKeyClicked(keyID) {
     switch (calcStatus[1]) {
         case false:
