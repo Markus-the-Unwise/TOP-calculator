@@ -28,7 +28,7 @@ function addNumberToValue(obj, value) {
 }
 
 function addDecimal(obj) {
-    if (obj.decimal == true) { return };
+    if (obj.decimal == true) { console.log("Decimal already exists");return };
     obj.str += ".";
     obj.decimal = true;
 }
@@ -122,6 +122,15 @@ function equalKeyPress(){
     // status = [TFF]
 }
 
+// Display function
+let firstValueDisplay = document.querySelector('#firstValueDisplay')
+let secondValueDisplay = document.querySelector('#secondValueDisplay')
+
+function updateDebugDisplay (){
+    firstValueDisplay.textContent = `First Value: ${Object.values(firstValue)}`
+    secondValueDisplay.textContent = `Second Value: ${Object.values(secondValue)}`
+}
+
 // Initial values
 let firstValue = { str: "", value: 0, decimal: false, negative: false, inherited: false };
 let secondValue = { str: "", value: 0, decimal: false, negative: false };
@@ -187,8 +196,6 @@ if status == [T T T]
     parseFloat secondValue
     Calculate result
     store result as firstValue (inherited = true)
-
-TODO:function convertResultToFirstValue()
 */
 
 const allKeys = document.querySelectorAll("#numberKeys button");
@@ -199,6 +206,7 @@ for (let i = 0; i < allKeys.length; i++) {
         calcStatus[1] = document.querySelector('#operationSelected').checked;
         console.log(`calcStatus: ${calcStatus}`);
         numberKeyPress(e.target.id);
-        resultDiv.textContent = firstValue.str
+        resultDiv.textContent = firstValue.str;
+        updateDebugDisplay()
     })
 }
