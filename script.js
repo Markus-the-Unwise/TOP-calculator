@@ -112,6 +112,7 @@ function operationKeyPress(keyID){
         // reset all
         return
     }
+    calcStatus[1] = true;
     operation = keyID;
     return
 }
@@ -123,12 +124,15 @@ function equalKeyPress(){
 }
 
 // Display function
-let firstValueDisplay = document.querySelector('#firstValueDisplay')
-let secondValueDisplay = document.querySelector('#secondValueDisplay')
-
 function updateDebugDisplay (){
-    firstValueDisplay.textContent = `First Value: ${Object.values(firstValue)}`
-    secondValueDisplay.textContent = `Second Value: ${Object.values(secondValue)}`
+    let firstValueDisplay = document.querySelector('#firstValueDisplay');
+    let secondValueDisplay = document.querySelector('#secondValueDisplay');
+    let operationDisplay = document.querySelector('#operationDisplay');
+    let resultDisplay = document.querySelector('#resultDisplay');
+    firstValueDisplay.textContent = `First Value: ${Object.values(firstValue)}`;
+    secondValueDisplay.textContent = `Second Value: ${Object.values(secondValue)}`;
+    operationDisplay.textContent = `Operation: ${operation}`;
+    resultDisplay.textContent = `Result: ${result}`
 }
 
 // Initial values
@@ -198,15 +202,25 @@ if status == [T T T]
     store result as firstValue (inherited = true)
 */
 
-const allKeys = document.querySelectorAll("#numberKeys button");
+const allNumberKeys = document.querySelectorAll("#numberKeys button");
+const operationKeys = document.querySelectorAll('#operationKeys button')
+const equalKey = document.querySelector('#equal')
+
 const resultDiv = document.querySelector('#result');
-console.log(allKeys)
-for (let i = 0; i < allKeys.length; i++) {
-    allKeys[i].addEventListener('click', (e) => {
-        calcStatus[1] = document.querySelector('#operationSelected').checked;
+for (let i = 0; i < allNumberKeys.length; i++) {
+    allNumberKeys[i].addEventListener('click', (e) => {
+        // calcStatus[1] = document.querySelector('#operationSelected').checked;
         console.log(`calcStatus: ${calcStatus}`);
         numberKeyPress(e.target.id);
-        resultDiv.textContent = firstValue.str;
+        resultDiv.textContent = firstValue.str+operation+secondValue.str;
+        updateDebugDisplay()
+    })
+}
+
+for (let i = 0;i<operationKeys.length;i++){
+    operationKeys[i].addEventListener('click',(e)=>{
+        operationKeyPress(e.target.id);
+        resultDiv.textContent = firstValue.str+operation+secondValue.str;
         updateDebugDisplay()
     })
 }
