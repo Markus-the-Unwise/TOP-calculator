@@ -5,16 +5,16 @@ function divide(a, b) { if(b == 0){return "BRUH"};return a / b; };
 function operate(a, b, opMethod) {
     let result = 0;
     switch (opMethod) {
-        case 'add':
+        case '+':
             result = add(a, b);
             break;
-        case 'subtract':
+        case '-':
             result = subtract(a, b);
             break
-        case 'multiply':
+        case '*':
             result = multiply(a, b);
             break
-        case 'divide':
+        case '/':
             result = divide(a, b)
             break
         default:
@@ -204,7 +204,7 @@ if status == [T T T]
 
 const allNumberKeys = document.querySelectorAll("#numberKeys button");
 const operationKeys = document.querySelectorAll('#operationKeys button')
-const equalKey = document.querySelector('#equal')
+const equalKey = document.querySelector('#=')
 
 const resultDiv = document.querySelector('#result');
 for (let i = 0; i < allNumberKeys.length; i++) {
@@ -219,6 +219,11 @@ for (let i = 0; i < allNumberKeys.length; i++) {
 
 for (let i = 0;i<operationKeys.length;i++){
     operationKeys[i].addEventListener('click',(e)=>{
+        if (e.target.id == '=') {
+            operate(firstValue.value,secondValue.value,operation)
+            // update display
+            return
+        }
         operationKeyPress(e.target.id);
         resultDiv.textContent = firstValue.str+operation+secondValue.str;
         updateDebugDisplay()

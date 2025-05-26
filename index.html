@@ -11,24 +11,28 @@
 <body>
     <div class="frame">
         <div style="height: 30px;background-color: aqua;" id="result"></div>
-        <div id="numberKeys">
-            <button id="1">1</button>
-            <button id="2">2</button>
-            <button id="3">3</button>
-            <button id="4">4</button>
-            <button id="5">5</button>
-            <button id="6">6</button>
-            <button id="7">7</button>
-            <button id="8">8</button>
-            <button id="9">9</button>
+        <div class="buttons">
+            <div class="numbers" id="numberKeys">
+                <button class="number" id="7">7</button>
+                <button class="number" id="8">8</button>
+                <button class="number" id="9">9</button>
+                <button class="number" id="4">4</button>
+                <button class="number" id="5">5</button>
+                <button class="number" id="6">6</button>
+                <button class="number" id="1">1</button>
+                <button class="number" id="2">2</button>
+                <button class="number" id="3">3</button>
+                
+            </div>
+            <div class="operations" id="operationKeys">
+                <button id="+">+</button>
+                <button id="-">-</button>
+                <button id="*">*</button>
+                <button id="/">/</button>
+                <button id="=">=</button>
+            </div>
         </div>
-        <div id="operationKeys">
-            <button id="add">+</button>
-            <button id="subtract">-</button>
-            <button id="multiply">*</button>
-            <button id="divide">/</button>
-        </div>
-        <button id="equal">=</button>
+        
     </div>
     <div class="testingArea">
         <input id="operationSelected" type="checkbox">
