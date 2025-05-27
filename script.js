@@ -202,9 +202,9 @@ if status == [T T T]
     store result as firstValue (inherited = true)
 */
 
-const allNumberKeys = document.querySelectorAll("#numberKeys button");
-const operationKeys = document.querySelectorAll('#operationKeys button')
-const equalKey = document.querySelector('#=')
+const allNumberKeys = document.querySelectorAll(".number");
+const operationKeys = document.querySelectorAll('.operation')
+// const equalKey = document.querySelector('#=')
 
 const resultDiv = document.querySelector('#result');
 for (let i = 0; i < allNumberKeys.length; i++) {
