@@ -36,7 +36,7 @@ function addDecimal(obj) {
 function negativeMultiplier(obj) {
     obj.negative = !obj.negative
     if (obj.negative && !obj.str.includes("-")) { obj.str = '-' + obj.str }
-    if (!obj.negative && obj.str.includes("-")) { obj.str.replace('-', "") }
+    if (!obj.negative && obj.str.includes("-")) { obj.str = obj.str.replace('-', "") }
 }
 
 function storeValue(obj){
@@ -170,74 +170,13 @@ let operation = "";
 
 let calcStatus = [false, false, false]; //[FirstValueExists,OperationMethodSelected, SecondValueExists]
 
-/*
-process A (first time use, status == [F F F]):
-1. firstValueExists the moment a number is pressed [T F F]
-2. save first value when operation key is pressed and status == [T F F]
-    save operation type (dependent on key pressed)
-3. secondValueExists when number is pressed (if status == [T T F])
-4. on "=" or "operation" button: store second value if status == [T T T]
-    return results if status == [T T T] (Exception1)
-5. status = [T F F] (through equal button) [T T F] (through operation button)
-
-process B (solved once)
-1. result from previous calculation is saved as first value, 
-        a. First value is replaced when (number key is pressed && status == [T F F]). return to A.3
-        b. secondValueExists when (number key is pressed && status == [T T F]). return to A.5
-
-Exception1: Divide by 0
-1. upon A.6 check if (second value == 0 && operation == 'divide')
-2. return "Bruh" as result if true, run "All clear"
-
-Special key (decimal):
-1. set variable decimalPressed, start as false
-2. turns true when pressed once
-3. return to false when operation or equal button is pressed
-
-Special key (+/-):
-if status == [T F F] or [F F F]:
-    firstValue.negative *= -1
-if status == [T T F] or [T T T]:
-    secondValue.negative *= -1
-
-Special key (AC):
-remove all values and operations
-
-Number Keys (0-9):
-if status == [F F F]
-    if (firstValue.inherited == true):
-        clear firstValue
-    add buttonID to firstValue as string
-if status == [T T F]
-    add buttonID to secondValue as string
-
-Operation Key:
-if status == [T F F] (first value not yet stored)
-    parseFloat firstValue
-    store operation type
-    status = [T T F]
-if status == [T T T] (second value not yet stored)
-    parseFloat secondValue
-    Calculate result
-    store operation type for next calculation
-    store result as firstValue (inherited = true)
-    status = [T T F]
-Equal Key:
-if status == [T T T]
-    parseFloat secondValue
-    Calculate result
-    store result as firstValue (inherited = true)
-
-    TODO: updateResult area
-    TODO: add update display to all buttons
-*/
-
 const allNumberKeys = document.querySelectorAll(".number");
-const operationKeys = document.querySelectorAll('.operation')
-const allClearKey = document.querySelector(`.clear`)
-const percentKey = document.querySelector('.percent')
-const signKey = document.querySelector('.sign')
-const decimalKey = document.querySelector('.decimal')
+const operationKeys = document.querySelectorAll('.operation');
+const allClearKey = document.querySelector(`.clear`);
+const percentKey = document.querySelector('.percent');
+const signKey = document.querySelector('.sign');
+const decimalKey = document.querySelector('.decimal');
+const allBtn = document.querySelectorAll('button');
 
 const resultDiv = document.querySelector('#result');
 for (let i = 0; i < allNumberKeys.length; i++) {
@@ -254,17 +193,9 @@ for (let i = 0;i<operationKeys.length;i++){
     operationKeys[i].addEventListener('click',(e)=>{
         if (e.target.id == '=') {
             equalKeyPress();
-            // operate(firstValue.value,secondValue.value,operation)
-            // update display
-            resultDiv.textContent = result;
-            updateDebugDisplay();
             return;
         }
         operationKeyPress(e.target.id);
-        // update display
-        resultDiv.textContent = firstValue.str+operation+secondValue.str;
-
-        updateDebugDisplay()
     })
 }
 
@@ -272,3 +203,10 @@ percentKey.addEventListener('click',()=>{percentKeyPress()})
 allClearKey.addEventListener('click',()=>{allClear()})
 decimalKey.addEventListener('click',()=>{decimalKeyPress()})
 signKey.addEventListener('click',()=>{signKeyPress()})
+
+for (let i = 0;i<allBtn.length;i++){
+    allBtn[i].addEventListener('click',(e)=>{
+        updateDebugDisplay();
+        updateResultDisplay(e.target.id);
+    })
+}
