@@ -157,6 +157,11 @@ function updateDebugDisplay (){
     resultDisplay.textContent = `Result: ${result}`
 }
 
+function updateResultDisplay(keyID){
+    if (keyID == "=") {resultDiv.textContent = result;return};
+    resultDiv.textContent = firstValue.str+operation+secondValue.str;
+}
+
 // Initial values
 let firstValue = { str: "", value: 0, decimal: false, negative: false, inherited: false };
 let secondValue = { str: "", value: 0, decimal: false, negative: false };
@@ -223,11 +228,8 @@ if status == [T T T]
     Calculate result
     store result as firstValue (inherited = true)
 
-    TODO: all clear
-    TODO: percent
-    TODO: decimal
-    TODO: sign
     TODO: updateResult area
+    TODO: add update display to all buttons
 */
 
 const allNumberKeys = document.querySelectorAll(".number");
