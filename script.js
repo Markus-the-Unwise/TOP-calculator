@@ -69,7 +69,7 @@ function numberKeyPress(keyID) {
     }
 }
 
-function negativeKeyPress(){
+function signKeyPress(){
     switch (calcStatus[1]) {
         case false:
             negativeMultiplier(firstValue);
@@ -213,11 +213,20 @@ if status == [T T T]
     parseFloat secondValue
     Calculate result
     store result as firstValue (inherited = true)
+
+    TODO: all clear
+    TODO: percent
+    TODO: decimal
+    TODO: sign
+    TODO: updateResult area
 */
 
 const allNumberKeys = document.querySelectorAll(".number");
 const operationKeys = document.querySelectorAll('.operation')
 const allClearKey = document.querySelector(`.clear`)
+const percentKey = document.querySelector('.percent')
+const signKey = document.querySelector('.sign')
+const decimalKey = document.querySelector('.decimal')
 
 const resultDiv = document.querySelector('#result');
 for (let i = 0; i < allNumberKeys.length; i++) {
@@ -236,13 +245,19 @@ for (let i = 0;i<operationKeys.length;i++){
             equalKeyPress();
             // operate(firstValue.value,secondValue.value,operation)
             // update display
-            resultDiv.textContent = result
-            updateDebugDisplay()
-            return
+            resultDiv.textContent = result;
+            updateDebugDisplay();
+            return;
         }
         operationKeyPress(e.target.id);
+        // update display
         resultDiv.textContent = firstValue.str+operation+secondValue.str;
+
         updateDebugDisplay()
     })
 }
 
+percentKey.addEventListener('click',()=>{percentKeyPress()})
+allClearKey.addEventListener('click',()=>{allClear()})
+decimalKey.addEventListener('click',()=>{decimalKeyPress()})
+signKey.addEventListener('click',()=>{signKeyPress()})
