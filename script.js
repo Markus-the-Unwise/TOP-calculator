@@ -105,8 +105,17 @@ function allClear(){
     calcStatus = [false, false, false];
 }
 
-function percentKeyPress(obj){
-    return newValue = parseFloat(obj.str)/100;
+function percent(obj){
+    return newValue = String(parseFloat(obj.str)/100);
+}
+
+function percentKeyPress(){
+    if (!calcStatus[1]) {
+        firstValue.str = percent(firstValue);
+        return
+    }
+    secondValue.str = percent(secondValue);
+    return
 }
 
 function operationKeyPress(keyID){
