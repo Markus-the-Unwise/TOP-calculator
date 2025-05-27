@@ -110,21 +110,29 @@ function percentKeyPress(obj){
 
 function operationKeyPress(keyID){
     if(calcStatus[2]){
-        // store second value
-        // begin calculation, store result to first value (inherit = true) and keyID to operation type
-        // flag calcStatus to [TTF]
-        // reset all
+        storeValue(secondValue);
+        result = operate(firstValue.value,secondValue.value,operation);
+        storeResultToFirstValue(result);
+        result = 0;
+        operation = keyID;
+        calcStatus=[true, true,false];
+        secondValue = { str: "", value: 0, decimal: false, negative: false };
         return
     }
+    storeValue(firstValue);
     calcStatus[1] = true;
     operation = keyID;
     return
 }
 
 function equalKeyPress(){
-    // store second value
-    // begin calculation, store result to first value (inherit = true), reset everything else
-    // status = [TFF]
+    storeValue(secondValue);
+    result = operate(firstValue.value,secondValue.value,operation);
+    storeResultToFirstValue(result);
+    secondValue = { str: "", value: 0, decimal: false, negative: false };
+    result = 0;
+    operation = "";
+    calcStatus = [true,false,false];
 }
 
 // Display function
