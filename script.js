@@ -56,7 +56,7 @@ function numberKeyPress(keyID) {
     switch (calcStatus[1]) {
         case false:
             calcStatus[0] = true;
-            if(firstValue.inherited){firstValue.str = ""}
+            if(firstValue.inherited){firstValue.str = "";firstValue.inherited=false}
             addNumberToValue(firstValue, keyID);
             break;
         case true:
@@ -136,6 +136,7 @@ function operationKeyPress(keyID){
 }
 
 function equalKeyPress(){
+    if(calcStatus != [true,true,true]){console.log('equal key pressed without all values');return}
     storeValue(secondValue);
     result = operate(firstValue.value,secondValue.value,operation);
     storeResultToFirstValue(result);
