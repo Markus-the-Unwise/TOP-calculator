@@ -159,7 +159,7 @@ function updateDebugDisplay (){
 }
 
 function updateResultDisplay(keyID){
-    if (keyID == "=") {resultDiv.textContent = result;return};
+    if (keyID == "=" && calcStatus == [true,true,true]) {resultDiv.textContent = result;return};
     resultDiv.textContent = firstValue.str+operation+secondValue.str;
 }
 
