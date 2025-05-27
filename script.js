@@ -45,7 +45,7 @@ function storeValue(obj){
 }
 
 function storeResultToFirstValue (result){
-    firstValue.str = Sting(result);
+    firstValue.str = String(result);
     firstValue.decimal = firstValue.str.includes(".");
     firstValue.negative = firstValue.str.includes("-");
     firstValue.inherited = true;
@@ -56,6 +56,7 @@ function numberKeyPress(keyID) {
     switch (calcStatus[1]) {
         case false:
             calcStatus[0] = true;
+            if(firstValue.inherited){firstValue.str = ""}
             addNumberToValue(firstValue, keyID);
             break;
         case true:
@@ -113,7 +114,7 @@ function operationKeyPress(keyID){
         storeValue(secondValue);
         result = operate(firstValue.value,secondValue.value,operation);
         storeResultToFirstValue(result);
-        result = 0;
+        // result = 0;
         operation = keyID;
         calcStatus=[true, true,false];
         secondValue = { str: "", value: 0, decimal: false, negative: false };
@@ -130,7 +131,7 @@ function equalKeyPress(){
     result = operate(firstValue.value,secondValue.value,operation);
     storeResultToFirstValue(result);
     secondValue = { str: "", value: 0, decimal: false, negative: false };
-    result = 0;
+    // result = 0;
     operation = "";
     calcStatus = [true,false,false];
 }
@@ -216,7 +217,7 @@ if status == [T T T]
 
 const allNumberKeys = document.querySelectorAll(".number");
 const operationKeys = document.querySelectorAll('.operation')
-// const equalKey = document.querySelector('#=')
+const allClearKey = document.querySelector(`.clear`)
 
 const resultDiv = document.querySelector('#result');
 for (let i = 0; i < allNumberKeys.length; i++) {
@@ -232,8 +233,11 @@ for (let i = 0; i < allNumberKeys.length; i++) {
 for (let i = 0;i<operationKeys.length;i++){
     operationKeys[i].addEventListener('click',(e)=>{
         if (e.target.id == '=') {
-            operate(firstValue.value,secondValue.value,operation)
+            equalKeyPress();
+            // operate(firstValue.value,secondValue.value,operation)
             // update display
+            resultDiv.textContent = result
+            updateDebugDisplay()
             return
         }
         operationKeyPress(e.target.id);
@@ -241,3 +245,4 @@ for (let i = 0;i<operationKeys.length;i++){
         updateDebugDisplay()
     })
 }
+
