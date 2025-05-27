@@ -9,6 +9,10 @@
     border-width: 10px;
 }
 
+.result {
+    height: 70px;
+}
+
 .buttons {
     display: flex;
 }
@@ -17,8 +21,21 @@
     width: 75%;
 }
 
-.number {
+.operations {
+    width: 25%;
+}
+
+.operations button{
+    height: 70px;
+}
+
+.numbers button {
     width: 32%;
+    height: 70px;
+}
+
+.number.zero {
+    width: 65%;
 }
 
 .operations {

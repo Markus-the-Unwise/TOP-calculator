@@ -104,6 +104,10 @@ function allClear(){
     calcStatus = [false, false, false];
 }
 
+function percentKeyPress(obj){
+    return newValue = parseFloat(obj.str)/100;
+}
+
 function operationKeyPress(keyID){
     if(calcStatus[2]){
         // store second value
